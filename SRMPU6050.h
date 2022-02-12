@@ -4,10 +4,11 @@
 
 
 #ifndef _SRMPU6050_H_
-#define SRMPU6050_H_
+#define _SRMPU6050_H_
 
 
 // ADD INCLUDES HERE
+#include <stdint.h>
 // will probably need some way to communicate on i2c serial
 
 // REGISTER DEFINITONS:
@@ -117,5 +118,28 @@ NOTE: The Device powers on in sleep mode!!!
 #define FIFO_COUNTL                     0x73    // R/W
 #define FIFO_R_W                        0x74    // R/W
 #define WHO_AM_I                        0x75    // R
+
+
+// ADD OTHER DEFINITIONS HERE THAT MAY BE NEEDED 
+#define DEF_DEV_ADD                     0x50    
+
+class SRMPU6050
+{
+public:
+    SRMPU6050();
+    SRMPU6050(uint8_t address);
+    // ~SRMPU6050();
+
+    // DEFINE PUBLIC FUNCTIONS
+    void initialize();
+
+private:
+    uint8_t deviceAdd;
+    
+};
+
+
+
+
 
 #endif
