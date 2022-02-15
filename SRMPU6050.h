@@ -1,5 +1,5 @@
 /*
-    Dericed from the MPU-6050 Register map
+    Derived from the MPU-6050 Register map
 */
 
 
@@ -9,6 +9,7 @@
 
 // ADD INCLUDES HERE
 #include <stdint.h>
+
 // will probably need some way to communicate on i2c serial
 
 // REGISTER DEFINITONS:
@@ -121,7 +122,28 @@ NOTE: The Device powers on in sleep mode!!!
 
 
 // ADD OTHER DEFINITIONS HERE THAT MAY BE NEEDED 
-#define DEF_DEV_ADD                     0x50    
+#define DEF_DEV_ADD                     0x50 
+
+
+// PWR_MGMT_1 REGISTER DEFS
+#define PWR_MGT1_DEVICE_RESET_BIT       7
+#define PWR_MGT1_SLEEP_BIT              6
+#define PWR_MGT1_CYCLE_BIT              5
+#define PWR_MGT1_TEMP_DISABLE_BIT       4
+#define PWR_MGT1_CLKSEL_BIT             2       // [2:0]
+#define PWR_MGT1_CLKSEL_LEN             3
+
+// PWR_MGTM_1 CLOCK SOURCES
+#define MPU6050_INTERNAL_CLK            0x00    // This source is not recommended
+#define MPU6050_PLL_XGYRO               0x01    // it is recomended to use one of the gyro references
+#define MPU6050_PLL_YGYRO               0x02    //
+#define MPU6050_PLL_ZGYRO               0x03    // 
+#define MPU6050_EXT1                    0x04    // 32.768kHz reference
+#define MPU6050_EXT2                    0x05    // 19.2MHz reference
+#define MPU6050_CLK_STP                 0x07    // stops the clock and keeps the timing generator in reset
+
+
+
 
 class SRMPU6050
 {
@@ -132,9 +154,15 @@ public:
 
     // DEFINE PUBLIC FUNCTIONS
     void initialize();
-
+    void initialize(uint8_t clkSrc);
+    
 private:
+    // VARIABLES
     uint8_t deviceAdd;
+
+    // FUNCTIONS
+    void configureClock(uint8_t clkSrc);
+    
     
 };
 

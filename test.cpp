@@ -7,7 +7,6 @@ int main()
 {
     SRMPU6050 mpu;
 
-
     mpu.initialize();
 
 
